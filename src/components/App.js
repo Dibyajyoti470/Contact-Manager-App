@@ -11,6 +11,8 @@ import ContactDetail from "./ContactDetail";
 
 function App() {
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
   //Retrieve Contacts
   const retrieveContacts = async () => {
@@ -28,7 +30,7 @@ function App() {
   };
 
   const updateContactHandler = async (contact) => {
-    const response = await api.put(`/contact/${contact.id}`, contact);
+    const response = await api.put(`/contacts/${contact.id}`, contact);
     const { id, name, email } = response.data;
     setContacts(
       contacts.map((contact) => {
@@ -44,6 +46,21 @@ function App() {
     });
 
     setContacts(newContactList);
+  };
+
+  const searchHandler = (searchTerm) => {
+    setSearchTerm(searchTerm);
+    if (searchTerm !== "") {
+      const newContactList = contacts.filter((contact) => {
+        return Object.values(contact)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+    } else {
+      setSearchResults(contacts);
+    }
   };
 
   useEffect(() => {
@@ -66,8 +83,10 @@ function App() {
             render={(props) => (
               <ContactList
                 {...props}
-                contacts={contacts}
+                contacts={searchTerm.length < 1 ? contacts : searchResults}
                 getContactId={removeContactHandler}
+                term={searchTerm}
+                searchKeyword={searchHandler}
               />
             )}
           />

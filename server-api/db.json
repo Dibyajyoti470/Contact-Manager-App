@@ -2,8 +2,18 @@
   "contacts": [
     {
       "id": "64e1b33a-cc7f-425d-9b26-7d0dcc36ea07",
-      "name": "Dibya",
+      "name": "Dibyajyoti",
       "email": "abc@gmail.com"
+    },
+    {
+      "id": "81f31ff7-6e5a-4911-bb27-e300decd63b0",
+      "name": "Amar",
+      "email": "amar@gmail.com"
+    },
+    {
+      "id": "a2cb1b44-dc08-4f40-88ed-fee62415de2c",
+      "name": "Mike",
+      "email": "mike@gmail.com"
     }
   ]
 }
